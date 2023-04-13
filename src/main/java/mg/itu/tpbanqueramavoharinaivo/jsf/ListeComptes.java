@@ -14,7 +14,7 @@ import mg.itu.tpbanqueramavoharinaivo.entities.CompteBancaire;
 
 /**
  *
- * @author 26134
+ * @author ramavo
  */
 @Named(value = "listeComptes")
 @ViewScoped
