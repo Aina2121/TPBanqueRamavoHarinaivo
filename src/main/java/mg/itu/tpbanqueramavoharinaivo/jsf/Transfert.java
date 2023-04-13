@@ -9,6 +9,7 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import mg.itu.tpbanqueramavoharinaivo.ejb.GestionnaireCompte;
 import mg.itu.tpbanqueramavoharinaivo.entities.CompteBancaire;
+import mg.itu.tpbanqueramavoharinaivo.jsf.util.Util;
 
 /**
  *
@@ -58,9 +59,25 @@ public class Transfert {
     }
 
     public String transferer(){
+         boolean erreur = false;
         CompteBancaire source = ejb.findById(idSource);
+        if (source == null) {
+            Util.messageErreur("Aucun compte correspondant pour la source !", "Aucun compte correspondant pour la source !", "form:source");
+            erreur = true;
+        } else {
+            if (source.getSolde() < montant) {
+                Util.messageErreur("Solde insuffisant pour ce transfert !", "Solde insuffisant pour ce transfert !", "form:montant");
+                erreur = true;
+            }
+        }
         CompteBancaire destination = ejb.findById(idDestination);
+        if (destination == null) {
+            Util.messageErreur("Aucun compte correspondant pour la destination !", "Aucun compte correspondant pour la destination !", "form:destination");
+            erreur = true;
+        }
+        if (erreur)     return null;
         ejb.transferer(source, destination, montant);
+        Util.addFlashInfoMessage("Transfert effectué avec succès");
         return "listeComptes?faces-redirect=true";
     }
     
