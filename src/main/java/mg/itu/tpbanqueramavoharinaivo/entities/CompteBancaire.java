@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 
 /**
  *
- * @author 26134
+ * @author ramavo
  */
 @Entity
 public class CompteBancaire implements Serializable {
