@@ -33,7 +33,7 @@ import mg.itu.tpbanqueramavoharinaivo.entities.CompteBancaire;
 )
 @Stateless
 public class GestionnaireCompte {
-     @PersistenceContext
+     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
 
     public void creerCompte(CompteBancaire c) {
